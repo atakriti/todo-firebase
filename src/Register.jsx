@@ -76,14 +76,14 @@ function Register() {
       <h1 className='text-center text-3xl mb-3'>Sign up</h1>
       <form className='border-y-2 mb-2 p-2 flex justify-between flex-col w-full  md:flex-row' onChange={handleChangeSu} onSubmit={handleSubmitSu}>
         <input required value={suValue.emailSu} type="text" name="emailSu" id="" placeholder='E-Mail...' className='flex-1 p-1 outline-none' />
-        <input required value={suValue.passwordSu} type="password" name="passwordSu" id="" placeholder='Password...' className='flex-1 p-1 outline-none' />
+        <input required value={suValue.passwordSu} type="password" name="passwordSu" id="" placeholder='Password... (Min 6 character)' className='flex-1 p-1 outline-none' />
         <button className='bg-sky-600 text-white w-40 py-1 rounded-full mx-auto outline-none hover:bg-sky-300'>Sign up</button>
       </form>
       {/* ==================== sign in ============= */}
       <h1 className='text-center text-3xl mb-3'>Sign in</h1>
       <form className='border-y-2 mb-2 p-2 flex justify-between flex-col w-full  md:flex-row' onChange={handleChangeSi} onSubmit={handleSubmitSi} >
         <input required value={siValue.emailSi} type="text" name="emailSi" id="" placeholder='E-Mail...' className='flex-1 p-1 outline-none' />
-        <input required value={siValue.passwordSi} type="password" name="passwordSi" id="" placeholder='Password...' className='flex-1 p-1 outline-none' />
+        <input required value={siValue.passwordSi} type="password" name="passwordSi" id="" placeholder='Password... (Min 6 character)' className='flex-1 p-1 outline-none' />
         <button className='bg-sky-600 text-white w-40 py-1 rounded-full mx-auto outline-none hover:bg-sky-300'>Sign in</button>
       </form>
       {/* ====================== Sign out ================= */}
