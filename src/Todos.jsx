@@ -1,11 +1,10 @@
 import React, { useEffect, useRef,useState } from 'react'
-import { db } from "../firebase"
+import { db } from "./firebase"
 import {collection,getDocs,updateDoc,doc,deleteDoc,addDoc} from "firebase/firestore"
 
 function Todos() {
     let [todoValue,setTodoValue] = useState({text:"",isDone:false})
     let [todos,setTodos] = useState([])
-    console.log("🚀 ~ file: Todos.jsx:8 ~ Todos ~ todos:", todos)
     let todosCollection = collection(db, "todos")
     // ================================================= Getting Data ==========================
     let fetchingTodos = async () => {
@@ -27,7 +26,6 @@ function Todos() {
         let changing = {isDone:!isDone}
         await updateDoc(selectedUser, changing)
         fetchingTodos().then(data => setTodos(data.docs.map(doc => ({...doc.data(),id:doc.id}))))
-        console.log(id);
     }
     // ================================ Delete ======================
     let deleteFun = async (id) => {
@@ -42,17 +40,17 @@ function Todos() {
     },[])
   return (
       <div>
-          <form onSubmit={addFun}>
-              <input placeholder='Todo...' type="text" name="text" id="" value={todoValue.text} onChange={(e) => setTodoValue({...todoValue,text:e.target.value})} />
+          <form onSubmit={addFun} className="border border-slate-950 p-3 max-w-lg flex justify-between rounded">
+              <input className='flex-1 outline-none' placeholder='Todo...' type="text" name="text" id="" value={todoValue.text} onChange={(e) => setTodoValue({...todoValue,text:e.target.value})} />
               <button>Add</button>
           </form>
           {/* ==================== MAP ============ */}
-          <ul>
+          <ul >
               {todos.map(todo => (
-                  <li style={todo.isDone ? {backgroundColor:"green"} : {background:"transparent"}}>
-                      <span>{todo.text}</span>
-                      <button onClick={() => doneFun(todo.id,todo.isDone)}>Done</button>
-                      <button onClick={() => deleteFun(todo.id)}>Delete</button>
+                  <li className='border flex justify-around items-center mt-2'  style={todo.isDone ? {backgroundColor:"green"} : {background:"transparent"}}>
+                      <span className='w-96' >{todo.text}</span>
+                      <button className="bg-blue-500 text-white font-bold py-1 px-5 rounded button outline-none hover:bg-blue-300" onClick={() => doneFun(todo.id,todo.isDone)}>Done</button>
+                      <button className="bg-red-600 text-white font-bold py-1 px-5 rounded button outline-none hover:bg-red-400" onClick={() => deleteFun(todo.id)}>Delete</button>
                   </li>
               ) )}
           </ul>

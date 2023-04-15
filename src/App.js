@@ -1,11 +1,18 @@
 import React from "react";
-import Todos from "./Todos/Todos";
-
-import "./style.scss"
+import Todos from "./Todos";
+import {Routes,Route} from "react-router-dom"
+import Register from "./Register";
+import Header from "./Header";
+import "./index.css"
 function App() {
   return (
-    <div className="App">
-      <Todos />
+    <div className="min-h-screen border-2 max-w-7xl mx-auto ">
+      <Header/>
+      <Routes>
+        <Route path="/todos" element={<Todos />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+      
     </div>
   );
 }
