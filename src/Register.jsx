@@ -3,6 +3,7 @@ import {BsGoogle} from "react-icons/bs"
 import { auth,googleProvider } from "./firebase"
 import {createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut,signInWithPopup} from "firebase/auth"
 function Register() {
+  // To dsipaly the id of the user it calls uid
   // by Default when signup it will signin automatically
   let [user,setUser] = useState({}) // Here we want only the user who signed in
   let [suValue, setSuValue] = useState({
