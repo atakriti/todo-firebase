@@ -15,6 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export let db = getFirestore(app)
 export let auth = getAuth(app)
+// ============== Upload file ============
 export let storage = getStorage(app)
 // =============== For google =============
 export let googleProvider = new GoogleAuthProvider()

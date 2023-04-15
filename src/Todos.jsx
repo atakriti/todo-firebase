@@ -6,7 +6,7 @@ import { storage } from "./firebase"
 import {ref,uploadBytes,listAll, getDownloadURL,deleteObject} from "firebase/storage"
 // ======================= END IMAGE ===================
 import {v4} from "uuid"
-
+import fileImg from "./file.png"
 function Todos() {
     let [todoValue, setTodoValue] = useState({ text: "", isDone: false })
     // ==================== Upload img ===================
@@ -101,7 +101,7 @@ function Todos() {
           </form>
           <form action=""></form>
           {/* ==================== MAP ============ */}
-          <ul >
+          <ul className='mb-5' >
               {todos?.map(todo => (
                   <li className='border flex justify-around items-center mt-2'  style={todo.isDone ? {backgroundColor:"green"} : {background:"transparent"}}>
                       <span className='w-96' >{todo.text}</span>
@@ -110,11 +110,12 @@ function Todos() {
                   </li>
               ) )}
           </ul>
-          <div className="container md:flex justify-between gap-x-2">
+          <div className="container md:flex justify-between gap-2 flex-wrap">
               
-              {images.map(img => <span className='flex flex-col '>
-                  <img className='w-full rounded-lg mb-2' src={img} />
-                  <button onClick={()=>handleDeleteImg(img)} className='bg-red-800 text-white px-2 py-1'>Delete</button>
+              {images.map(img => <span className='flex flex-col items-center '>
+                  <img className='w-52 h-52 object-cover rounded-lg mb-2' src={img.includes(".pdf") ? fileImg : img } />
+                  <button onClick={() => handleDeleteImg(img)} className='bg-red-800 text-white w-32 py-1 text-sm'>Delete</button>
+                  <a target={'_blank'} href={img} className='bg-yellow-600 text-white w-32 py-1 text-sm text-center mt-2' >Open</a>
           </span>)}
           </div>
     </div>
