@@ -1,6 +1,6 @@
 import React, { useEffect, useRef,useState } from 'react'
 import { db } from "./firebase"
-import { collection, getDocs, updateDoc, doc, deleteDoc, addDoc } from "firebase/firestore"
+import { collection, getDocs, updateDoc, doc, deleteDoc, addDoc,onSnapshot } from "firebase/firestore"
 // ======================= IMAGE ===================
 import { storage } from "./firebase"
 import {ref,uploadBytes,listAll, getDownloadURL,deleteObject} from "firebase/storage"
@@ -17,8 +17,13 @@ function Todos() {
     let todosCollection = collection(db, "todos")
     // ================================================= Getting Data ==========================
     let fetchingTodos = async () => {
-        let data = await getDocs(todosCollection)
-        return data
+
+        // let data = await getDocs(todosCollection)
+        // return data
+       let result = await onSnapshot(todosCollection, (onsnapshot) => {
+        setTodos(onsnapshot.docs.map(doc => ({...doc.data(),id:doc.id})))
+       })
+        return result
     }
     // ============================== Adding ===============================
     let addFun = async (e) => {
@@ -31,7 +36,7 @@ function Todos() {
                 // Here we add the todo with the image using the url
              addDoc(todosCollection, { text: todoValue.text, isDone: todoValue.isDone,img:url })
             alert("Done")
-            fetchingTodos().then(data => setTodos(data.docs.map(doc => ({ ...doc.data(), id: doc.id }))))
+            // fetchingTodos().then(data => setTodos(data.docs.map(doc => ({ ...doc.data(), id: doc.id }))))
         })
         
     })
@@ -51,7 +56,7 @@ function Todos() {
         let selectedUser = doc(db, "todos", id)
         let changing = {isDone:!isDone}
         await updateDoc(selectedUser, changing)
-        fetchingTodos().then(data => setTodos(data.docs.map(doc => ({...doc.data(),id:doc.id}))))
+        // fetchingTodos().then(data => setTodos(data.docs.map(doc => ({...doc.data(),id:doc.id}))))
     }
 // ======================= IMAGE ===================
     // ================================ Delete ======================
@@ -66,7 +71,7 @@ function Todos() {
             console.error(error);
         });
 
-        fetchingTodos().then(data => setTodos(data.docs.map(doc => ({...doc.data(),id:doc.id}))))
+        // fetchingTodos().then(data => setTodos(data.docs.map(doc => ({...doc.data(),id:doc.id}))))
 
     }
     // ================================ IMAGE ========================
@@ -111,7 +116,9 @@ function Todos() {
         // })
         // =============== END IMAGES ================
         // We have to map through them because its a long object and we put date() because it make it shorter, firebase made this shortcut
-        fetchingTodos().then(data => setTodos(data?.docs?.map(doc => ({...doc.data(),id:doc.id}))))
+        // fetchingTodos().then(data => setTodos(data?.docs?.map(doc => ({...doc.data(),id:doc.id}))))
+        fetchingTodos()
+       
     },[])
   return (
       <div>
