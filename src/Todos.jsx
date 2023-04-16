@@ -35,7 +35,8 @@ function Todos() {
             getDownloadURL(snapshot.ref).then((url) => {
                 // Here we add the todo with the image using the url
              addDoc(todosCollection, { text: todoValue.text, isDone: todoValue.isDone,img:url })
-            alert("Done")
+                alert("Done")
+                e.target.reset()
             // fetchingTodos().then(data => setTodos(data.docs.map(doc => ({ ...doc.data(), id: doc.id }))))
         })
         
@@ -123,8 +124,8 @@ function Todos() {
   return (
       <div>
           <form onSubmit={addFun} className="border border-slate-950 p-3 max-w-lg flex flex-col space-y-4 rounded">
-              <input className='flex-1 outline-none' placeholder='Todo...' type="text" name="text" id="" value={todoValue.text} onChange={(e) => setTodoValue({...todoValue,text:e.target.value})} />
-              <input type="file" name="" id="" onChange={e => setImgValue(e.target.files[0])} />
+              <input required className='flex-1 outline-none' placeholder='Todo...' type="text" name="text" id="" value={todoValue.text} onChange={(e) => setTodoValue({...todoValue,text:e.target.value})} />
+              <input required type="file" name="" id="" onChange={e => setImgValue(e.target.files[0])} />
               <button className='bg-orange-400 text-white py-1'>Add</button>
           </form>
           
