@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom"
 function Header() {
+  // =====================
   return (
       <header className='mb-3 max-w-full flex justify-between items-center p-2 sm:w-96 '>
           <Link className='bg-slate-500 text-white px-4 py-1 rounded-full hover:bg-slate-400' to="/todos">Todos</Link>
